@@ -119,4 +119,9 @@
   .category-link {
     font: 400 1.8vmax "Roboto";
   }
+
+  .products{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

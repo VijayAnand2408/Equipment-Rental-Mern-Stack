@@ -4,9 +4,9 @@ import {Link} from 'react-router-dom'
 
 function LoginIcon() {
     return (
-        <div className="speedDial skip">
+        <div className="speedDial123 skip">
             <Link to='/login'>
-            <Avatar className="speedDialIcon" src="../../../images/Profile.png"/>
+            <Avatar className="speedDialIcon123" src="../../../images/Profile.png"/>
             </Link>
         </div>
     )

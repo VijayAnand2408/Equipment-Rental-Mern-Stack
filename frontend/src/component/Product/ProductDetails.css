@@ -201,6 +201,7 @@
   .ProductDetails {
     flex-direction: column;
     height: unset;
+    margin-top: 4rem;
   }
 
   .ProductDetails > div:last-child {

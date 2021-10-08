@@ -9,11 +9,13 @@
   position: fixed;
   top: 0%;
   left: 0;
+  margin-top: 3rem;
 }
+
 
 .LoginSignUpBox {
   background-color: white;
-  width: 25vw;
+  width: 31vw;
   height: 70vh;
   box-sizing: border-box;
   overflow: hidden;
@@ -41,6 +43,10 @@
   width: 50%;
   border: none;
   transition: all 0.5s;
+}
+
+.Butt{
+  padding: 2px;
 }
 
 .loginForm,
@@ -131,7 +137,7 @@
   color: white;
   font: 300 0.9vmax "Roboto";
   width: 100%;
-  padding: 0.8vmax;
+  padding: 0.8vmax !important;
   cursor: pointer;
   transition: all 0.5s;
   border-radius: 4px;
@@ -148,7 +154,7 @@
   transform: translateX(-100%);
 }
 .shiftToNeutral {
-  transform: translateX(0%);
+  transform: translateX(-50%);
 }
 
 .shiftToNeutralForm {
@@ -156,10 +162,13 @@
 }
 
 .shiftToRight {
-  transform: translateX(100%);
+  transform: translateX(50%);
 }
 
 @media screen and (max-width: 600px) {
+  .LoginSignUpContainer{
+    margin-top: 5rem;
+  }
   .LoginSignUpContainer {
     background-color: white;
   }
@@ -207,6 +216,7 @@
   .loginBtn,
   .signUpBtn {
     font: 300 1.9vmax "Roboto";
-    padding: 1.8vmax;
+    padding: 15px !important;
   }
 }
+

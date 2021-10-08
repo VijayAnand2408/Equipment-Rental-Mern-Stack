@@ -37,7 +37,7 @@ const NewProduct = ({ history }) => {
     "Cloths",
     "Tools",
     "Games",
-    "Musical Items"
+    "Musical Items",
   ];
 
   useEffect(() => {

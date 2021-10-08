@@ -162,7 +162,7 @@ const ProductDetails = ({ match }) => {
               </div>
 
               <button onClick={submitReviewToggle} className="submitReview">
-                Submit Review
+                Add Review
               </button>
             </div>
           </div>

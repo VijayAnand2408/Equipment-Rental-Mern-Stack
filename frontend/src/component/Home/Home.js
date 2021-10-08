@@ -1,19 +1,11 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import "./Home.css";
 import MetaData from "../layout/MetaData";
-import { clearErrors, getProduct } from "../../actions/productAction";
-import { useSelector, useDispatch } from "react-redux";
-import Loader from "../layout/Loader/Loader";
-import { useAlert } from "react-alert";
 import Banner from './Banner'
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const alert = useAlert();
-  const dispatch = useDispatch();
-  const { loading, error, products } = useSelector((state) => state.products);
-
-  const cat =[
+ const cat =[
            {
              index:1,
              cardImg:"https://www.hdnicewallpapers.com/Walls/Big/Games/Assassins_Creed_Valhalla_Game_4K_Wallpaper.jpg"
@@ -54,22 +46,7 @@ const Home = () => {
           },
   ]
 
-  
-
-
-  useEffect(() => {
-    if (error) {
-      alert.error(error);
-      dispatch(clearErrors());
-    }
-    dispatch(getProduct());
-  }, [dispatch, error, alert]);
-
   return (
-    <Fragment>
-      {loading ? (
-        <Loader />
-      ) : (
         <Fragment>
           <MetaData title="Equrent--Home" />
           <div>
@@ -97,8 +74,6 @@ const Home = () => {
             </div>
           </div>
         </Fragment>
-      )}
-    </Fragment>
   );
 };
 

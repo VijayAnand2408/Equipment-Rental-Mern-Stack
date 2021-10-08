@@ -7,6 +7,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 3.5rem;
 }
 .PageNotFound > svg {
   font-size: 7vmax;
@@ -27,6 +28,10 @@
 }
 
 @media screen and (max-width: 600px) {
+  .PageNotFound{
+    margin-top: 6rem;
+  }
+ 
   .PageNotFound > a {
     padding: 3vw 6vw;
     font: 400 4vw "Roboto";
