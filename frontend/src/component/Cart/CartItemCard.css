@@ -32,13 +32,13 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1200px) {
   .CartItemCard {
     padding: 3vmax;
     height: 25vmax;
   }
   .CartItemCard > img {
-    width: 10vmax;
+    width: 19vmax;
   }
 
   .CartItemCard > div {
@@ -55,5 +55,6 @@
 
   .CartItemCard > div > p {
     font: 100 1.8vmax "Roboto";
+    font-size: x-large;
   }
 }

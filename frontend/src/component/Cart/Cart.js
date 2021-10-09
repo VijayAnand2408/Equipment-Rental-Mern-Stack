@@ -11,20 +11,33 @@ const Cart = ({ history }) => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
 
-  const increaseQuantity = (id, quantity, stock) => {
+  const increaseQuantity = (id, quantity, stock,days) => {
     const newQty = quantity + 1;
     if (stock <= quantity) {
       return;
     }
-    dispatch(addItemsToCart(id, newQty));
+    dispatch(addItemsToCart(id, newQty,days));
   };
 
-  const decreaseQuantity = (id, quantity) => {
+  const increaseDays=(id,quantity,days)=>{
+    const newQty = days + 1;
+    dispatch(addItemsToCart(id, quantity,newQty));
+  }
+
+  const decreaseDays = (id, quantity,days) => {
+    const newQty = days - 1;
+    if (1 > days) {
+      return;
+    }
+    dispatch(addItemsToCart(id, quantity,newQty));
+  };
+
+  const decreaseQuantity = (id, quantity,days) => {
     const newQty = quantity - 1;
     if (1 >= quantity) {
       return;
     }
-    dispatch(addItemsToCart(id, newQty));
+    dispatch(addItemsToCart(id, newQty,days));
   };
 
   const deleteCartItems = (id) => {
@@ -50,38 +63,72 @@ const Cart = ({ history }) => {
             <div className="cartHeader">
               <p>Product</p>
               <p>Quantity</p>
+              <p>Number of days</p>
               <p>Subtotal</p>
             </div>
 
             {cartItems &&
               cartItems.map((item) => (
-                <div className="cartContainer" key={item.product}>
-                  <CartItemCard item={item} deleteCartItems={deleteCartItems} />
-                  <div className="cartInput">
-                    <button
-                      onClick={() =>
-                        decreaseQuantity(item.product, item.quantity)
-                      }
-                    >
-                      -
-                    </button>
-                    <input type="number" value={item.quantity} readOnly />
-                    <button
-                      onClick={() =>
-                        increaseQuantity(
-                          item.product,
-                          item.quantity,
-                          item.stock
-                        )
-                      }
-                    >
-                      +
-                    </button>
+                <>
+                  <div className="cartContainer" key={item.product}>
+                    <CartItemCard item={item} deleteCartItems={deleteCartItems} />
+                    <div>
+                      <h4 className="hide">Quantity</h4>
+                      <div className="cartInput">
+                        <button
+                          onClick={() =>
+                            decreaseQuantity(item.product, item.quantity,item.days)
+                          }
+                        >
+                          -
+                        </button>
+                        {/* <input type="number" value={item.quantity} /> */}
+                        <h5>{item.quantity}</h5>
+                        <button
+                          onClick={() =>
+                            increaseQuantity(
+                              item.product,
+                              item.quantity,
+                              item.stock,
+                              item.days
+                            )
+                          }
+                        >
+                          +
+                        </button>
+
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="hide">Number of days</h4>
+                      <div className="cartInput">
+                        <button
+                          onClick={() =>
+                            decreaseDays(item.product, item.quantity,item.days)
+                          }
+                        >
+                          -
+                        </button>
+                        <h5>{item.days}</h5>
+                        {/* <input type="number" value={item.quantity} /> */}
+                        <button
+                          onClick={() =>
+                            increaseDays(
+                              item.product,
+                              item.quantity,
+                              item.days
+                            )
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <div>
+                    <h4 className="hide">Total</h4>
+                    <p className="cartSubtotal">{`₹${item.price * item.quantity*item.days }`}</p></div>
                   </div>
-                  <p className="cartSubtotal">{`₹${
-                    item.price * item.quantity
-                  }`}</p>
-                </div>
+                </>
               ))}
 
             <div className="cartGrossProfit">
@@ -99,6 +146,7 @@ const Cart = ({ history }) => {
               </div>
             </div>
           </div>
+
         </Fragment>
       )}
     </Fragment>
