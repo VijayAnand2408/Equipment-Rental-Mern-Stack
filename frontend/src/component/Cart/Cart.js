@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment} from "react";
 import "./Cart.css";
 import CartItemCard from "./CartItemCard";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,6 +8,7 @@ import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 import { Link } from "react-router-dom";
 
 const Cart = ({ history }) => {
+
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -26,7 +27,7 @@ const Cart = ({ history }) => {
 
   const decreaseDays = (id, quantity,days) => {
     const newQty = days - 1;
-    if (1 > days) {
+    if (1 >= days) {
       return;
     }
     dispatch(addItemsToCart(id, quantity,newQty));
@@ -47,6 +48,8 @@ const Cart = ({ history }) => {
   const checkoutHandler = () => {
     history.push("/login?redirect=shipping");
   };
+
+
 
   return (
     <Fragment>
@@ -136,7 +139,7 @@ const Cart = ({ history }) => {
               <div className="cartGrossProfitBox">
                 <p>Gross Total</p>
                 <p>{`₹${cartItems.reduce(
-                  (acc, item) => acc + item.quantity * item.price,
+                  (acc, item) => acc + item.quantity * item.price *item.days,
                   0
                 )}`}</p>
               </div>

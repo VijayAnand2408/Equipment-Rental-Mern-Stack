@@ -8,11 +8,12 @@ const Header = ({ auth }) => {
 
 
   var body = document.getElementsByTagName('body')[0];
-
+  
   const toggleNavigation = (event) => {
     event.preventDefault();
     body.classList.toggle('nav-open');
   }
+  
 
 
   return (

@@ -1,17 +1,25 @@
-import React, { Fragment } from "react";
+import React, { Fragment , useState } from "react";
 import CheckoutSteps from "../Cart/CheckoutSteps";
 import { useSelector } from "react-redux";
 import MetaData from "../layout/MetaData";
 import "./ConfirmOrder.css";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { createOrder } from "../../actions/orderAction";
+import { useAlert } from "react-alert";
+
 
 const ConfirmOrder = ({ history }) => {
+   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-
+  const [captured, setcaptured] = useState(false)
+  const dispatch = useDispatch();
+  const alert = useAlert();
   const subtotal = cartItems.reduce(
-    (acc, item) => acc + item.quantity * item.price,
+    (acc, item) => acc + item.quantity * item.price * item.days,
     0
   );
 
@@ -23,7 +31,7 @@ const ConfirmOrder = ({ history }) => {
 
   const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
 
-  const proceedToPayment = () => {
+ 
     const data = {
       subtotal,
       shippingCharges,
@@ -33,8 +41,66 @@ const ConfirmOrder = ({ history }) => {
 
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
 
-    history.push("/process/payment");
+
+    const paymentData = {
+           amount: totalPrice,
+      };
+
+  const order = {
+    shippingInfo,
+    orderItems: cartItems,
+    itemsPrice: orderInfo.subtotal,
+    days:orderInfo.days,
+    taxPrice: orderInfo.tax,
+    shippingPrice: orderInfo.shippingCharges,
+    totalPrice: orderInfo.totalPrice,
   };
+
+
+
+  const submitHandler = async (e) => {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const response= await axios.post(
+        "/api/v1/razorpay/order",
+        paymentData,
+        config
+        
+       
+      ).then((info)=>{
+        console.log(info)
+        const options = {
+              key: 'rzp_test_cRvayq4By0Llod',
+              name: user.name,
+              description:shippingInfo,
+               order_id: info.data.id, 
+                "theme": {
+                  "color": "#3399cc"
+              }
+        };
+        order.paymentInfo = {
+               id: options.order_id,
+               status: "succeeded",
+         };
+
+         const rzp1 = new window.Razorpay(options);
+         rzp1.open();
+         dispatch(createOrder(order));
+         history.push("/success");
+         localStorage.clear();
+      }).catch((err)=>{
+        console.log(err)
+      })
+
+     
+
+
+  };
+
+
 
   return (
     <Fragment>
@@ -104,7 +170,7 @@ const ConfirmOrder = ({ history }) => {
               <span>₹{totalPrice}</span>
             </div>
 
-            <button onClick={proceedToPayment}>Proceed To Payment</button>
+            <button id='rzp-button1' onClick={submitHandler}>Proceed To Payment</button>
           </div>
         </div>
       </div>

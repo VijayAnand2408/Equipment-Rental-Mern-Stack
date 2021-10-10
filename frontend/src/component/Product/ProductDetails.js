@@ -61,7 +61,7 @@ const ProductDetails = ({ match }) => {
   };
 
   const addToCartHandler = () => {
-    dispatch(addItemsToCart(match.params.id, quantity));
+    dispatch(addItemsToCart(match.params.id, quantity,1));
     alert.success("Item Added To Cart");
   };
 
@@ -138,7 +138,7 @@ const ProductDetails = ({ match }) => {
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
                     <button onClick={decreaseQuantity}>-</button>
-                    <input readOnly type="number" value={quantity} />
+                    <h4>{quantity}</h4>
                     <button onClick={increaseQuantity}>+</button>
                   </div>
                   <button

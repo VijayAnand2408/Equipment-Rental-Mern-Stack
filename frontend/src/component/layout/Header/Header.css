@@ -66,12 +66,11 @@
 
 .nav-trigger {
   position: fixed;
-  z-index: 4;
+  z-index: 100;
   top: 1rem;
   left: 40px;
   height: 44px;
   width: 44px;
-
   overflow: hidden;
   color: transparent;
   white-space: nowrap;
