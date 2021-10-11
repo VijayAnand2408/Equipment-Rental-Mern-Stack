@@ -2,7 +2,7 @@ h5{
   margin: 7px;
 }
 .emptyCart {
-  margin: auto;
+  margin-top: 2rem;
   text-align: center;
   padding: 10vmax;
   height: 50vh;
@@ -70,7 +70,7 @@ h5{
 .cartInput {
   display: flex;
   align-items: center;
-  height: 8vmax;
+  /* height: 8vmax; */
   margin-left: 1rem;
 }
 
@@ -103,7 +103,7 @@ h5{
 .cartSubtotal {
   display: flex;
   padding: 0.5vmax;
-  height: 8vmax;
+  /* height: 8vmax; */
   align-items: center;
   box-sizing: border-box;
   font: 300 1vmax cursive;

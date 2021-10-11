@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom'
 import './Header.css'
 import { FaSearch } from 'react-icons/fa'
 
-
 const Header = ({ auth }) => {
-
+  const [toggle, settoggle] = useState(false)
 
   var body = document.getElementsByTagName('body')[0];
   
   const toggleNavigation = (event) => {
     event.preventDefault();
     body.classList.toggle('nav-open');
+    settoggle(true)
   }
   
-
+  const toggleHome = (event) => {
+    if (toggle===true){
+      body.classList.toggle('nav-open');
+    }
+    settoggle(false)
+  }
 
   return (
     <div className="fixed-bar">
@@ -24,10 +29,10 @@ const Header = ({ auth }) => {
       </a>
       <nav className="nav-container" id="navigation">
         <ul className="nav">
-          <li><Link to="/">HOME</Link></li>
-          <li><Link to="/products">PRODUCTS</Link></li>
-          <li><Link to="/contact">CONTACT</Link></li>
-          <li><Link to="/about">ABOUT</Link></li>
+          <li><Link to="/" className="nav1" onClick={toggleHome}>HOME</Link></li>
+          <li><Link to="/products" className="nav2" onClick={toggleHome}>PRODUCTS</Link></li>
+          <li><Link to="/contact" onClick={toggleHome}>CONTACT</Link></li>
+          <li><Link to="/about" onClick={toggleHome}>ABOUT</Link></li>
         </ul>
       </nav>
     </div>

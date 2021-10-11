@@ -4,6 +4,7 @@
   height: 8vmax;
   align-items: flex-start;
   box-sizing: border-box;
+  align-items: center;
 }
 .CartItemCard > img {
   width: 5vmax;
@@ -28,14 +29,19 @@
 
 .CartItemCard > div > p {
   color: tomato;
-  font: 100 0.8vmax "Roboto";
+  font: 100 1vmax "Roboto";
   cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 @media screen and (max-width: 1200px) {
   .CartItemCard {
     padding: 3vmax;
     height: 25vmax;
+    justify-content: space-around;
+
   }
   .CartItemCard > img {
     width: 19vmax;

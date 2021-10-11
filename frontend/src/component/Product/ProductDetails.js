@@ -123,8 +123,8 @@ const ProductDetails = ({ match }) => {
 
             <div>
               <div className="detailsBlock-1">
-                <h2>{product.name}</h2>
-                <p>Product # {product._id}</p>
+                <h1>{product.name}</h1>
+                {/* <p>Product # {product._id}</p> */}
               </div>
               <div className="detailsBlock-2">
                 <Rating {...options} />
@@ -152,7 +152,8 @@ const ProductDetails = ({ match }) => {
                 <p>
                   Status:
                   <b className={product.Stock < 1 ? "redColor" : "greenColor"}>
-                    {product.Stock < 1 ? "OutOfStock" : "InStock"}
+                    {product.Stock + " "}
+                    {product.Stock < 1 ? "OutOfStock" : "Available"}
                   </b>
                 </p>
               </div>

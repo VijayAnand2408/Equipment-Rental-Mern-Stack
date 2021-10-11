@@ -1,4 +1,4 @@
-import React, { Fragment} from "react";
+import React, { Fragment } from "react";
 import "./Cart.css";
 import CartItemCard from "./CartItemCard";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,7 +8,6 @@ import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 import { Link } from "react-router-dom";
 
 const Cart = ({ history }) => {
-
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -48,7 +47,6 @@ const Cart = ({ history }) => {
   const checkoutHandler = () => {
     history.push("/login?redirect=shipping");
   };
-
 
 
   return (

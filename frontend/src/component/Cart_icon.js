@@ -9,6 +9,7 @@ function CartIcon() {
 
   function cart() {
       history.push("/cart");
+      window.location.reload();
    }
     return (
         <div onClick={()=>cart()} className="cart"><ImCart size={25}/></div>

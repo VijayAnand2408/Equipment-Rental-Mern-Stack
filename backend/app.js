@@ -9,15 +9,18 @@ const Razorpay = require('razorpay');
 
 const errorMiddleware = require("./middleware/error");
 
-const razorInstance = new Razorpay({
-  key_id : process.env.RAZORPAY_API_KEY,
-  key_secret : process.env.RAZORPAY_SECRET_KEY
-})
 
 // Config
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({ path: "backend/config/config.env" });
 }
+
+
+const razorInstance = new Razorpay({
+  key_id : process.env.RAZORPAY_API_KEY,
+  key_secret : process.env.RAZORPAY_SECRET_KEY
+})
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -36,7 +39,7 @@ app.use("/api/v1", order);
 app.post("/api/v1/razorpay/order",(req,res)=>{
   const { amount } = req.body;
   let options ={
-    amount : amount * 10,
+    amount : amount * 100,
     currency : "INR",
     receipt: "receipt#1",
     payment_capture: 0, //1

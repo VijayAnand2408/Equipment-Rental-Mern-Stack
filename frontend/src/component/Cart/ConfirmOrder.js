@@ -1,4 +1,4 @@
-import React, { Fragment , useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import CheckoutSteps from "../Cart/CheckoutSteps";
 import { useSelector } from "react-redux";
 import MetaData from "../layout/MetaData";
@@ -7,15 +7,14 @@ import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { createOrder } from "../../actions/orderAction";
+import { createOrder, clearErrors } from "../../actions/orderAction";
 import { useAlert } from "react-alert";
 
 
 const ConfirmOrder = ({ history }) => {
-   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-  const [captured, setcaptured] = useState(false)
+  const { error } = useSelector((state) => state.newOrder);
   const dispatch = useDispatch();
   const alert = useAlert();
   const subtotal = cartItems.reduce(
@@ -31,74 +30,92 @@ const ConfirmOrder = ({ history }) => {
 
   const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
 
- 
-    const data = {
-      subtotal,
-      shippingCharges,
-      tax,
-      totalPrice,
-    };
 
-    sessionStorage.setItem("orderInfo", JSON.stringify(data));
+  const data = {
+    subtotal,
+    shippingCharges,
+    tax,
+    totalPrice,
+  };
+
+  sessionStorage.setItem("orderInfo", JSON.stringify(data));
 
 
-    const paymentData = {
-           amount: totalPrice,
-      };
+  const paymentData = {
+    amount: totalPrice,
+  };
 
   const order = {
     shippingInfo,
     orderItems: cartItems,
-    itemsPrice: orderInfo.subtotal,
-    days:orderInfo.days,
-    taxPrice: orderInfo.tax,
-    shippingPrice: orderInfo.shippingCharges,
-    totalPrice: orderInfo.totalPrice,
+    itemsPrice: subtotal,
+    days: data.days,
+    taxPrice: tax,
+    shippingPrice: shippingCharges,
+    totalPrice: totalPrice,
   };
 
 
 
   const submitHandler = async (e) => {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    await axios.post(
+      "/api/v1/razorpay/order",
+      paymentData,
+      config
+    ).then((info) => {
+      console.log(info)
+      const options = {
+        key: 'rzp_test_cRvayq4By0Llod',
+        name: user.name,
+        description: cartItems,
+        order_id: info.data.id,
+        prefill: {
+          name: user.name,
+          email:user.email
         },
+        handler: function (response) {
+          localStorage.clear();
+          dispatch(createOrder(order));
+          history.push("/success");
+          alert.success("Your order succesfully placed")
+        },
+        theme: {
+          "color": "#3399cc"
+        }
       };
-      const response= await axios.post(
-        "/api/v1/razorpay/order",
-        paymentData,
-        config
-        
-       
-      ).then((info)=>{
-        console.log(info)
-        const options = {
-              key: 'rzp_test_cRvayq4By0Llod',
-              name: user.name,
-              description:shippingInfo,
-               order_id: info.data.id, 
-                "theme": {
-                  "color": "#3399cc"
-              }
-        };
-        order.paymentInfo = {
-               id: options.order_id,
-               status: "succeeded",
-         };
+      order.paymentInfo = {
+        id: options.order_id,
+        status: "succeeded",
+      };
 
-         const rzp1 = new window.Razorpay(options);
-         rzp1.open();
-         dispatch(createOrder(order));
-         history.push("/success");
-         localStorage.clear();
-      }).catch((err)=>{
-        console.log(err)
+      const rzp1 = new window.Razorpay(options);
+      rzp1.on('payment.failed', function (response) {
+        alert(response.error.description, response.error.reason);
       })
+      rzp1.on('payment.success', ()=> {
 
-     
+      })
+      rzp1.open();
+
+
+    }).catch((err) => {
+      console.log(err)
+    })
 
 
   };
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error,alert]);
 
 
 
