@@ -28,21 +28,21 @@ A E-commerce site built to make the way of purchasing rental products easier
 
 ## If you wish to reuse my code Don't forget to add the following things in your config.env file  
 
-> DB_URI
-> PORT
-> RAZORPAY_API_KEY
-> RAZORPAY_SECRET_KEY
-> JWT_SECRET
-> JWT_EXPIRE
-> COOKIE_EXPIRE
->SMPT_SERVICE
->SMPT_MAIL
->SMPT_PASSWORD
->SMPT_HOST
->SMPT_PORT
->CLOUDINARY_NAME
->CLOUDINARY_API_KEY
->CLOUDINARY_API_SECRET
+> DB_URI,
+> PORT,
+> RAZORPAY_API_KEY,
+> RAZORPAY_SECRET_KEY,
+> JWT_SECRET,
+> JWT_EXPIRE,
+> COOKIE_EXPIRE,
+>SMPT_SERVICE,
+>SMPT_MAIL,
+>SMPT_PASSWORD,
+>SMPT_HOST,
+>SMPT_PORT,
+>CLOUDINARY_NAME,
+>CLOUDINARY_API_KEY,
+>CLOUDINARY_API_SECRET,
 
 
 ## Admin Credentials
