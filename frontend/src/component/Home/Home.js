@@ -8,23 +8,28 @@ const Home = () => {
   const cat = [
     {
       index: 1,
-      cardImg: "https://www.hdnicewallpapers.com/Walls/Big/Games/Assassins_Creed_Valhalla_Game_4K_Wallpaper.jpg"
+      cardImg: "https://www.hdnicewallpapers.com/Walls/Big/Games/Assassins_Creed_Valhalla_Game_4K_Wallpaper.jpg",
+      link:"/products/game"
     },
     {
       index: 2,
-      cardImg: "https://images.unsplash.com/photo-1586162258051-1c33862abf57?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8NGslMjBjYW1lcmF8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
+      cardImg: "https://images.unsplash.com/photo-1586162258051-1c33862abf57?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8NGslMjBjYW1lcmF8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
+      link:"/products/camera"
     },
     {
       index: 3,
-      cardImg: "https://www.hdcarwallpapers.com/download/2019_ford_mustang_ecoboost_performance_pack_4k-2560x1440.jpg"
+      cardImg: "https://www.hdcarwallpapers.com/download/2019_ford_mustang_ecoboost_performance_pack_4k-2560x1440.jpg",
+      link:"/products/car"
     },
     {
       index: 4,
-      cardImg: "https://wallpaperaccess.com/full/333323.jpg"
+      cardImg: "https://wallpaperaccess.com/full/333323.jpg",
+      link:"/products/bike"
     },
     {
       index: 5,
-      cardImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/BelAZ-75214_truck_in_Russia.jpg/1200px-BelAZ-75214_truck_in_Russia.jpg"
+      cardImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/BelAZ-75214_truck_in_Russia.jpg/1200px-BelAZ-75214_truck_in_Russia.jpg",
+      link:"/products/bull"
     }
   ]
   // const cat2 = [
@@ -59,7 +64,7 @@ const Home = () => {
         <div className="con">
           {cat.map((cat) => (
             <div className="wrap" key={cat.index}>
-              <Link to='/products'>
+              <Link to={cat.link}>
                 <img src={cat.cardImg} alt="products_demo" />
               </Link>
             </div>))}
